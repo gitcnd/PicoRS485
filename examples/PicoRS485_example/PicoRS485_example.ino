@@ -43,7 +43,7 @@ void setup() {
   pinMode(cnd_ledPin,OUTPUT);
 
   myNodeID=NodeID.get();
-  PicoRS485.begin(115200,TX_PIN,RX_PIN);
+  PicoRS485.begin(9600,TX_PIN,RX_PIN);	// 115200 is not a good idea over very long cables
   PicoRS485.print(VERSION);
 } // setup
 

@@ -78,6 +78,23 @@ class PicoRS485 : public Print {
     while((UCSR0A & (1 << TXC0))==0){}					// Wait for it to go fully out (because if we do a "read" next, that blocks sending, so we need to be finished first)
     return 1;
   }
+  size_t writestr(uint8_t *b,unsigned int len) {
+    for(unsigned int i=0;i<len;i++)write(b[i]);
+    return 1;
+  }
+  size_t writestr(uint8_t *b) {
+    unsigned int len=strlen(b);
+    for(unsigned int i=0;i<len;i++)write(b[i]);
+    return 1;
+  }
+  size_t writestr(__FlashStringHelper *b) {
+    const char *s=(const char*)b;
+    uint8_t c=pgm_read_byte_near((__FlashStringHelper *)s); s++;
+    while(c!=0) {
+      write(c); c=pgm_read_byte_near((__FlashStringHelper *)s); s++;
+    }
+    return 1;
+  }
   private:
     byte _txpin;
     byte _rxpin;
