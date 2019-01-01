@@ -13,7 +13,7 @@ The cheap eBay/alibaba "automatic" RS845 boards use a hex inverter to "enable" t
   PicoRS485 PicoRS485;
 
   void setup() {
-    PicoRS485.begin(115200,TX_PIN,RX_PIN);
+    PicoRS485.begin(115200,&Serial,TX_PIN,RX_PIN);
     String VERSION=F("\n#\tv2.04 " __FILE__ "\t" __DATE__ " " __TIME__ "\n");
     PicoRS485.print(VERSION);
   }
@@ -25,6 +25,7 @@ The cheap eBay/alibaba "automatic" RS845 boards use a hex inverter to "enable" t
   write();	// send a byte
   read();	// recieve a byte
   print();	// send many bytes
+  println();	// " with CR
 ```
 
 
